@@ -23,21 +23,21 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @OpenAPIDefinition( security = @SecurityRequirement( name = "oauth2-keycloak" ) )
-@RequestMapping("checkout")
+@RequestMapping("/v1/checkout")
 public class CheckoutRest extends AbstractSecurityRest {
 
 	@Autowired
 	private CheckoutSibsService checkoutSibsService;
 	
 	@ResponseBody()
-	@PostMapping(value = "/v1/prepare")
+	@PostMapping(value = "prepare")
 	public ResponseEntity<CheckoutPayment> checkout(@RequestBody Checkout checkout) throws CheckoutException{
 		CheckoutPayment prepareCheckout = this.checkoutSibsService.checkout(checkout);
 		return new ResponseEntity<CheckoutPayment>(prepareCheckout, HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@GetMapping(value = "/v1/{checkoutId}/payment")
+	@GetMapping(value = "{checkoutId}/payment")
 	public ResponseEntity<Payment> paymentStatus(Principal principal, @PathVariable("checkoutId") String checkoutId ) throws CheckoutException {
 		String userId = this.getUserSubject(principal);
 		Payment payment = this.checkoutSibsService.payment(checkoutId, userId);

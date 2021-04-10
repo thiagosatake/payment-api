@@ -27,42 +27,42 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @OpenAPIDefinition( security = @SecurityRequirement( name = "oauth2-keycloak" ) )
-@RequestMapping("gateways")
+@RequestMapping("/v1/gateways")
 public class GatewaysRest {
 	
 	@Autowired
 	private GatewaysService gatewaysService;
 	
 	@ResponseBody
-	@GetMapping("/v1")
+	@GetMapping()
 	public ResponseEntity<List<GatewayDetails>> getGateways(){
 		List<GatewayDetails> listGatewayDetails = this.gatewaysService.listGateway();
 		return new ResponseEntity<List<GatewayDetails>>(listGatewayDetails, HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@GetMapping("/v1/{uuid}")
+	@GetMapping("{uuid}")
 	public ResponseEntity<Gateway> getGateways(@PathVariable UUID uuid){
 		Gateway gateway = this.gatewaysService.getGatewayById(uuid);
 		return new ResponseEntity<Gateway>(gateway, HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@GetMapping("/v1/name/{name}")
+	@GetMapping("name/{name}")
 	public ResponseEntity<Gateway> getByName(@PathVariable String name){
 		Gateway gateway = this.gatewaysService.getGatewayByName(name);
 		return new ResponseEntity<Gateway>(gateway, HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@DeleteMapping("/v1/{gatewayId}")
+	@DeleteMapping("{gatewayId}")
 	public ResponseEntity<Void> removeGateway(@PathVariable UUID gatewayId){
 		this.gatewaysService.removeGateway(gatewayId);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@PutMapping("/v1/save")
+	@PutMapping("save")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "409", description = "Conflict")		
 	})
@@ -72,20 +72,18 @@ public class GatewaysRest {
 	}
 
 	@ResponseBody
-	@PostMapping("/v1/{gatewayId}/configurations/save")
+	@PostMapping("{gatewayId}/configurations/save")
 	public ResponseEntity<Void> saveNewGatewayConfiguration(@PathVariable UUID gatewayId, @RequestBody GatewayConfiguration gatewayConfiguration){
 		this.gatewaysService.saveGatewayConfiguration(gatewayId, gatewayConfiguration);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@DeleteMapping("/v1/{gatewayId}/configurations/{key}/remove")
+	@DeleteMapping("{gatewayId}/configurations/{key}/remove")
 	public ResponseEntity<Void> saveGatewayConfiguration(@PathVariable UUID gatewayId, @PathVariable String key){
 		this.gatewaysService.removeGatewayConfiguration(gatewayId, key);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-
 	
 }
 

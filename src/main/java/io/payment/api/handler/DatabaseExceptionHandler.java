@@ -1,4 +1,4 @@
-package io.payment.api.config;
+package io.payment.api.handler;
 
 import org.springdoc.api.ErrorMessage;
 import org.springframework.core.NestedExceptionUtils;

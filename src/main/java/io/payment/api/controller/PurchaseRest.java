@@ -21,14 +21,14 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @OpenAPIDefinition( security = @SecurityRequirement( name = "oauth2-keycloak" ) )
-@RequestMapping("purchase")
+@RequestMapping("/v1/purchase")
 public class PurchaseRest extends AbstractSecurityRest {
 	
 	@Autowired
 	private PurchaseService purchaseService;
 	
 	@ResponseBody
-	@GetMapping(value = "/v1/history")
+	@GetMapping(value = "history")
 	public ResponseEntity<List<Purchase>> paymentStatus(Principal principal) throws CheckoutException {
 		String userId = this.getUserSubject(principal);
 		PurchaseList purchaseList = this.purchaseService.getHistory(UUID.fromString(userId));
