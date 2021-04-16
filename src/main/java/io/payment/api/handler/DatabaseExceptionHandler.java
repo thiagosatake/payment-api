@@ -1,5 +1,7 @@
 package io.payment.api.handler;
 
+import java.util.NoSuchElementException;
+
 import org.springdoc.api.ErrorMessage;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +19,14 @@ public class DatabaseExceptionHandler {
         String message = NestedExceptionUtils.getMostSpecificCause(e).getMessage();
         ErrorMessage errorMessage = new ErrorMessage(message); 
         return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+    }
+    
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<?> notFound(NoSuchElementException e) {
+
+        String message = NestedExceptionUtils.getMostSpecificCause(e).getMessage();
+        ErrorMessage errorMessage = new ErrorMessage(message); 
+        return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
 }
