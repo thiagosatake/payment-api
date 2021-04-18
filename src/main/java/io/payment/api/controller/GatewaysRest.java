@@ -48,6 +48,13 @@ public class GatewaysRest {
 	}
 	
 	@ResponseBody
+	@GetMapping("details/{uuid}")
+	public ResponseEntity<GatewayDetails> getDetails(@PathVariable UUID uuid){
+		GatewayDetails gatewayDetails = this.gatewaysService.getGatewayDetailsById(uuid);
+		return new ResponseEntity<GatewayDetails>(gatewayDetails, HttpStatus.OK);
+	}
+	
+	@ResponseBody
 	@GetMapping("name/{name}")
 	public ResponseEntity<Gateway> getByName(@PathVariable String name){
 		Gateway gateway = this.gatewaysService.getGatewayByName(name);

@@ -101,4 +101,11 @@ public class GatewaysServiceImpl implements GatewaysService {
 		this.gatewayConfigurationRepository.save(gatewayConfigurationEntity);
 	}
 
+	@Override
+	public GatewayDetails getGatewayDetailsById(UUID uuid) {
+		GatewayEntity gatewayEntity = this.gatewayRepository.getOne(uuid);
+		GatewayDetails gatewayDetails = this.gatewayMapper.toGatewayDetails(gatewayEntity);
+		return gatewayDetails;
+	}
+
 }

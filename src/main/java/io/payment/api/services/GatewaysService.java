@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 @Service
 public interface GatewaysService {
 
-	public Gateway getGatewayById(UUID name);
+	public Gateway getGatewayById(UUID uuid);
+	
+	public GatewayDetails getGatewayDetailsById(UUID uuid);
 	
 	public Gateway getGatewayByName(String name);
 	
