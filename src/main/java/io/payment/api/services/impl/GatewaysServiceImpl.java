@@ -88,9 +88,10 @@ public class GatewaysServiceImpl implements GatewaysService {
 		
 		if( gatewayConfiguration.getUuid() == null ) {
 			gatewayConfigurationEntity.setCreated(LocalDateTime.now());
+		}else {
+			gatewayConfigurationEntity = this.gatewayConfigurationRepository.getOne(gatewayConfiguration.getUuid());
 		}
 		
-		gatewayConfigurationEntity.setUuid(gatewayConfiguration.getUuid());
 		gatewayConfigurationEntity.setKey(gatewayConfiguration.getKey());		
 		gatewayConfigurationEntity.setValue(gatewayConfiguration.getValue());
 		
