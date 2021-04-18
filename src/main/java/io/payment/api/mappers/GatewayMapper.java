@@ -3,7 +3,6 @@ package io.payment.api.mappers;
 import java.util.List;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 import io.payment.api.entities.GatewayConfigurationEntity;
@@ -27,12 +26,10 @@ public interface GatewayMapper {
 
 	List<GatewayEntity> toGatewayEntityList(List<GatewayDetails> gatewayDetailsList);
 
-	@Mapping(target = "gatewayConfigurationPK.key", source = "key")
 	GatewayConfigurationEntity toGatewayConfigurationEntity(GatewayConfiguration gatewayConfiguration);
 	
 	List<GatewayConfigurationEntity> toGatewayConfigurationsList(List<GatewayConfiguration> gatewayConfigurations);
 	
-	@Mapping(target = "key", source = "gatewayConfigurationPK.key")
 	GatewayConfiguration toGatewayConfigurations(GatewayConfigurationEntity gatewayConfigurationEntity);
 	
 	List<GatewayConfiguration> toGatewayConfigurationEntityList(List<GatewayConfigurationEntity> gatewayConfigurationEntity);

@@ -48,7 +48,7 @@ public class GatewaysRest {
 	}
 	
 	@ResponseBody
-	@GetMapping("details/{uuid}")
+	@GetMapping("{uuid}/details")
 	public ResponseEntity<GatewayDetails> getDetails(@PathVariable UUID uuid){
 		GatewayDetails gatewayDetails = this.gatewaysService.getGatewayDetailsById(uuid);
 		return new ResponseEntity<GatewayDetails>(gatewayDetails, HttpStatus.OK);
@@ -79,16 +79,16 @@ public class GatewaysRest {
 	}
 
 	@ResponseBody
-	@PostMapping("{gatewayId}/configurations/save")
+	@PutMapping("{gatewayId}/configurations/save")
 	public ResponseEntity<Void> saveNewGatewayConfiguration(@PathVariable UUID gatewayId, @RequestBody GatewayConfiguration gatewayConfiguration){
 		this.gatewaysService.saveGatewayConfiguration(gatewayId, gatewayConfiguration);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@DeleteMapping("{gatewayId}/configurations/{key}/remove")
-	public ResponseEntity<Void> saveGatewayConfiguration(@PathVariable UUID gatewayId, @PathVariable String key){
-		this.gatewaysService.removeGatewayConfiguration(gatewayId, key);
+	@DeleteMapping("{gatewayUuid}/configurations/{uuid}/remove")
+	public ResponseEntity<Void> saveGatewayConfiguration(@PathVariable UUID gatewayUuid, @PathVariable UUID uuid){
+		this.gatewaysService.removeGatewayConfiguration(uuid);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

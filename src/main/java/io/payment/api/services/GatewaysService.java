@@ -24,7 +24,7 @@ public interface GatewaysService {
 	
 	public void removeGateway(UUID uuid);
 	
-	public void removeGatewayConfiguration(UUID gatewayID, String key);
+	public void removeGatewayConfiguration(UUID gatewayConfigurationID);
 	
 	public void saveGatewayConfiguration(UUID gatewayID, GatewayConfiguration gatewayConfiguration);
 	
@@ -57,6 +57,7 @@ public interface GatewaysService {
 	@AllArgsConstructor
 	class GatewayConfiguration {
 		
+		private UUID uuid;
 		private String key;
 		private String value;
 			

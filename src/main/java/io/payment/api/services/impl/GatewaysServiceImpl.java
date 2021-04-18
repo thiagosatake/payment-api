@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import io.payment.api.entities.GatewayConfigurationEntity;
-import io.payment.api.entities.GatewayConfigurationPK;
 import io.payment.api.entities.GatewayEntity;
 import io.payment.api.mappers.GatewayMapper;
 import io.payment.api.repositories.GatewayConfigurationRepository;
@@ -77,26 +76,21 @@ public class GatewaysServiceImpl implements GatewaysService {
 	}
 
 	@Override
-	public void removeGatewayConfiguration(UUID gatewayID, String key) {
-		GatewayEntity gatewayEntity = this.gatewayRepository.getOne(gatewayID);
-
-		GatewayConfigurationPK gatewayConfigurationPK = new GatewayConfigurationPK(
-				gatewayEntity, key);
-
-		this.gatewayConfigurationRepository.deleteById(gatewayConfigurationPK);
+	public void removeGatewayConfiguration(UUID gatewayConfigurationId) {
+		this.gatewayConfigurationRepository.deleteById(gatewayConfigurationId);
 	}
 
 	@Override
 	public void saveGatewayConfiguration(UUID gatewayId, GatewayConfiguration gatewayConfiguration) {
 		GatewayEntity gatewayEntity = this.gatewayRepository.getOne(gatewayId);
 
-		GatewayConfigurationPK gatewayConfigurationPK = new GatewayConfigurationPK(gatewayEntity,
-				gatewayConfiguration.getKey());
-		
 		GatewayConfigurationEntity gatewayConfigurationEntity = new GatewayConfigurationEntity();
 				
-		gatewayConfigurationEntity.setGatewayConfigurationPK(gatewayConfigurationPK);
+		gatewayConfigurationEntity.setUuid(gatewayConfiguration.getUuid());
+		gatewayConfigurationEntity.setKey(gatewayConfiguration.getKey());		
 		gatewayConfigurationEntity.setValue(gatewayConfiguration.getValue());
+		
+		gatewayConfigurationEntity.setGatewayEntity(gatewayEntity);
 		
 		this.gatewayConfigurationRepository.save(gatewayConfigurationEntity);
 	}

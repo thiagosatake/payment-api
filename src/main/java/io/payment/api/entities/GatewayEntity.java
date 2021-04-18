@@ -40,7 +40,7 @@ public class GatewayEntity {
 	@Column(name = "UPDATED")
 	private LocalDateTime updated;
 	
-	@OneToMany(mappedBy="gatewayConfigurationPK.gatewayEntity")
+	@OneToMany(mappedBy="gatewayEntity")
 	private List<GatewayConfigurationEntity> configurations;
 
 }
