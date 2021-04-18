@@ -1,6 +1,7 @@
 package io.payment.api.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -39,5 +40,11 @@ public class GatewayConfigurationEntity implements Serializable {
 	
 	@Column(name = "VALUE")
 	private String value;
+	
+	@Column(name = "CREATED")
+	private LocalDateTime created;
+
+	@Column(name = "UPDATED")
+	private LocalDateTime updated;
 
 }

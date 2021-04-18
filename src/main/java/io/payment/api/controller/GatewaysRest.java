@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -80,14 +79,17 @@ public class GatewaysRest {
 
 	@ResponseBody
 	@PutMapping("{gatewayId}/configurations/save")
-	public ResponseEntity<Void> saveNewGatewayConfiguration(@PathVariable UUID gatewayId, @RequestBody GatewayConfiguration gatewayConfiguration){
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "409", description = "Conflict")		
+	})
+	public ResponseEntity<UUID> saveNewGatewayConfiguration(@PathVariable UUID gatewayId, @RequestBody GatewayConfiguration gatewayConfiguration){
 		this.gatewaysService.saveGatewayConfiguration(gatewayId, gatewayConfiguration);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<UUID>(gatewayConfiguration.getUuid(), HttpStatus.OK);
 	}
 	
 	@ResponseBody
-	@DeleteMapping("{gatewayUuid}/configurations/{uuid}/remove")
-	public ResponseEntity<Void> saveGatewayConfiguration(@PathVariable UUID gatewayUuid, @PathVariable UUID uuid){
+	@DeleteMapping("/configurations/{uuid}/remove")
+	public ResponseEntity<Void> saveGatewayConfiguration(@PathVariable UUID uuid){
 		this.gatewaysService.removeGatewayConfiguration(uuid);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
