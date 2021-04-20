@@ -16,6 +16,8 @@ public interface GatewaysService {
 	
 	public GatewayDetails getGatewayDetailsById(UUID uuid);
 	
+	public GatewayConfiguration getConfigurationById(UUID uuid);
+	
 	public Gateway getGatewayByName(String name);
 	
 	public List<GatewayDetails> listGateway();
