@@ -30,6 +30,8 @@ public interface GatewaysService {
 	
 	public void saveGatewayConfiguration(UUID gatewayID, GatewayConfiguration gatewayConfiguration);
 	
+	public GatewayConfiguration getGatewayConfigurationByGatewayIdAndKey(UUID gatewayID, String name);
+	
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor

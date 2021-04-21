@@ -117,5 +117,13 @@ public class GatewaysServiceImpl implements GatewaysService {
 		GatewayConfiguration gatewayConfiguration = this.gatewayMapper.toGatewayConfigurations(gatewayEntity);
 		return gatewayConfiguration;
 	}
+
+	@Override
+	public GatewayConfiguration getGatewayConfigurationByGatewayIdAndKey(UUID gatewayID, String key) {
+		GatewayConfigurationEntity gatewayConfigurationEntity = this.gatewayConfigurationRepository
+				.getGatewayConfigurationByGatewayIdAndKey(gatewayID, key);
+		GatewayConfiguration gatewayConfiguration = this.gatewayMapper.toGatewayConfigurations(gatewayConfigurationEntity);
+		return gatewayConfiguration;
+	}
 	
 }

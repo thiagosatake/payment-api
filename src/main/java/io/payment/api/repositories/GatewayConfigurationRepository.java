@@ -15,5 +15,8 @@ public interface GatewayConfigurationRepository
 
 	@Query(value = "SELECT config.value FROM GatewayConfigurationEntity config WHERE config.gatewayEntity.name = :name AND config.key = :key ")
 	String search(@Param("key") String key, @Param("name") String name);
+	
+	@Query(value = "FROM GatewayConfigurationEntity config WHERE config.gatewayEntity.uuid = :gatewayId AND config.key = :key ")
+	GatewayConfigurationEntity getGatewayConfigurationByGatewayIdAndKey(@Param("gatewayId") UUID gatewayId, @Param("key") String key);
 
 }

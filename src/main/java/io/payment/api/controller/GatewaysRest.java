@@ -101,5 +101,12 @@ public class GatewaysRest {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@ResponseBody
+	@GetMapping("{gatewayId}/configurations/key/{key}")
+	public ResponseEntity<GatewayConfiguration> getByName(@PathVariable UUID gatewayId, @PathVariable String key){
+		GatewayConfiguration gateway = this.gatewaysService.getGatewayConfigurationByGatewayIdAndKey(gatewayId, key);
+		return new ResponseEntity<GatewayConfiguration>(gateway, HttpStatus.OK);
+	}
+	
 }
 
